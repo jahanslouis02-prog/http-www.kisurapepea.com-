@@ -1,4 +1,4 @@
-// Interactive behaviors: keyword reveals, modals, copy-to-clipboard, scroll reveals
+——// Interactive behaviors: keyword reveals, modals, copy-to-clipboard, scroll reveals
 document.addEventListener('DOMContentLoaded', function () {
     // Keyword toggles
                             document.querySelectorAll('.keyword').forEach(btn => {
