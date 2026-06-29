@@ -1,0 +1,7 @@
+{
+  "name": "kisura-pepea-site",
+  "private": true,
+  "scripts": {
+    "build": "echo 'Static site ready'"
+  }
+}
