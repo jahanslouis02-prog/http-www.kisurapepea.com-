@@ -47,38 +47,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
   const contactBtn = document.getElementById('contactBtn');
   if (contactBtn) contactBtn.addEventListener('click', () => {
-    openModal(`
-      <h3>Request a meeting</h3>
-      <form id="contactForm">
-        <label>Name <input name="name" required placeholder="Your name"/></label>
-        <label>Email <input name="email" type="email" required placeholder="you@example.com"/></label>
-        <label>Organization <input name="org" placeholder="Organization"/></label>
-        <label>Message <textarea name="message" rows="4" placeholder="Brief message or meeting purpose"></textarea></label>
-        <div style="display:flex;gap:.5rem;margin-top:.6rem;">
-          <button type="submit" class="button primary">Send request</button>
-          <button type="button" class="button secondary" id="modalCancel">Cancel</button>
-        </div>
-      </form>
-    `);
+    const recipient = 'kisurapepea@gmail.com';
+    const subject = 'Meeting request';
+    const body = 'Hello Kisura Pepea Initiative,\n\nI would like to request a meeting. Please let me know a suitable time.\n\nBest regards,\n';
+    const mailtoLink = 'mailto:' + recipient + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
 
-    const form = document.getElementById('contactForm');
-    const cancel = document.getElementById('modalCancel');
-    if (cancel) cancel.addEventListener('click', () => closeModal());
-    if (form) {
-      form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const data = new FormData(form);
-        const name = data.get('name') || '';
-        const email = data.get('email') || '';
-        const org = data.get('org') || '';
-        const msg = data.get('message') || '';
-        const subject = encodeURIComponent('Meeting request from ' + name + (org ? (' - ' + org) : ''));
-        const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nOrganization: ${org}\n\nMessage:\n${msg}`);
-        // fallback via mailto since there's no backend
-        const mailto = `mailto:kisurapepea@gmail.com?subject=${subject}&body=${body}`;
-        window.location.href = mailto;
-        closeModal();
-      });
+    try {
+      const link = document.createElement('a');
+      link.href = mailtoLink;
+      link.style.display = 'none';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      window.location.href = mailtoLink;
     }
   });
 
@@ -89,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
       <p>Account name: KISURA PEPEA INITIATIVE</p>
       <p>Bank: NMB — Branch: Mlimani City</p>
       <p>Swift: NMIBTZTZXXX</p>
-      <p class=\"muted\">Click copy on the main page to copy the account number.</p>`);
+      <p class="muted">Click copy on the main page to copy the account number.</p>`);
   });
 
   // donateNow button (visible in donation card) should open same modal
